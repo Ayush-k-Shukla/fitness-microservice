@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 @Data
-@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
