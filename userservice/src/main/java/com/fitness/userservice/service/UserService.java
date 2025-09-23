@@ -2,6 +2,7 @@ package com.fitness.userservice.service;
 
 import com.fitness.userservice.dto.RegisterRequest;
 import com.fitness.userservice.dto.UserResponse;
+import com.fitness.userservice.exception.UserNotFoundException;
 import com.fitness.userservice.model.User;
 import com.fitness.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class UserService {
 
     public UserResponse getUserProfile(String userId){
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("user not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not present"));
         return UserResponse.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -35,7 +36,6 @@ public class UserService {
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName(registerRequest.getLastName());
         user.setEmail(registerRequest.getEmail());
-//        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setPassword((registerRequest.getPassword()));
 
         User savedUser = userRepository.save(user);
