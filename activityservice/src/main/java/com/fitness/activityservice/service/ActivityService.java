@@ -16,7 +16,15 @@ public class ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
 
+    @Autowired
+    private UserValidationService userValidationService;
+
     public ActivityResponse trackActivity(ActivityRequest request) {
+
+        boolean isValidUser = userValidationService.validateUser(request.getUserId());
+
+        if(!isValidUser) throw new RuntimeException("User not found");
+
         Activity activity = Activity.builder()
                 .userId(request.getUserId())
                 .activityType(request.getActivityType())

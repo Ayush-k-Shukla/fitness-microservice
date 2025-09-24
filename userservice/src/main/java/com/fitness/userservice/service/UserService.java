@@ -49,4 +49,8 @@ public class UserService {
                 .updatedAt(savedUser.getUpdatedAt())
                 .build();
     }
+
+    public Boolean validateUser(String userId) {
+        return userRepository.existsById(userId);
+    }
 }
