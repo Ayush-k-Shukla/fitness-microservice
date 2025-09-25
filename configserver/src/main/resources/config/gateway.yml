@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: userservice
+              uri: lb://USERSERVICE
+              predicates:
+                - Path=/api/users/**
+
+            - id: activityservice
+              uri: lb://ACTIVITYSERVICE
+              predicates:
+                - Path=/api/actvities/**
+
+            - id: aiservice
+              uri: lb://AISERVICE
+              predicates:
+                - Path=/api/recommendations/**
+
+server:
+  port: 8080
