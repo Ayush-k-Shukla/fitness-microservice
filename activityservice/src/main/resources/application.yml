@@ -1,33 +1,5 @@
 spring:
   application:
     name: activityservice
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/fitness-activity
-      database: fitness-activity
-
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-
-server:
-  port: 8082
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-  instance:
-    prefer-ip-address: true
-    hostname: localhost
-
-logging:
-  level:
-    org.springframework.web: DEBUG
-
-rabbitmq:
-  queue: activity-queue
-  exchange: fitness-exchange
-  routing-key: activity-routing-key
+  config:
+    import: optional:configserver:http://localhost:8888
