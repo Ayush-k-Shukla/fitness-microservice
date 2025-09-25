@@ -1,11 +1,12 @@
 package com.fitness.activityservice.service;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserValidationService {
 
     private final WebClient userServiceWebClient;
