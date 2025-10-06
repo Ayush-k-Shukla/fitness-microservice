@@ -1,7 +1,20 @@
-For RabbitMQ
+# Intro
+
+Implementing Microservice pattern in Spring Boot along with following things
+- Service Discovery (Eureka)
+- API Gateway
+- Config Server
+- Gemini AI integration
+
+## Setup
+- First run eureka so all services can be registered and discovered.
+- Second run configserver so all configs are available
+- run all remaining service one by one
+- Also run dependency for each service like Mongo, Postgres, RabbitMQ.
+- In this service all instance are running locally
 
 
-
+For running RabbitMQ
 ```
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
 ```
