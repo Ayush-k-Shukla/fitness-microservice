@@ -91,3 +91,9 @@ graph TD
     F --> J
     G --> K
 ```
+
+## Some reference
+
+- https://bayoglubatuhan.medium.com/what-is-keycloak-what-is-behind-of-the-keycloak-how-does-keycloak-work-d1be308d3227
+- https://medium.com/@dulanjayasandaruwan1998/configuring-rabbitmq-in-a-spring-boot-application-b7bd2de77370
+- https://medium.com/cwan-engineering/rabbitmq-concepts-and-best-practices-aa3c699d6f08
