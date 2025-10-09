@@ -111,7 +111,6 @@ graph TD
 - https://medium.com/@sehgal.mohit06/oauth2-authorization-code-with-pkce-using-keycloak-and-spring-boot-demo-54a4f0c66dae
 
 
-Pending
+Consideration
 
-- remove password check fully
-- treat keycloak id as primary id for user who is loggedin
+- keycloak id is treated as primary as userId in whole app

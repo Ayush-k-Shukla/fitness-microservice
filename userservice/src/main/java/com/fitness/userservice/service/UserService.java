@@ -15,7 +15,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserResponse getUserProfile(String userId){
-        User user = userRepository.findById(userId)
+        User user = userRepository.findBykeyCloakId(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not present"));
         return UserResponse.builder()
                 .firstName(user.getFirstName())
@@ -24,19 +24,30 @@ public class UserService {
                 .id(user.getId())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
+                .keyCloakId(user.getKeyCloakId())
                 .build();
     }
 
     public UserResponse register(RegisterRequest registerRequest){
         if (userRepository.existsByEmail(registerRequest.getEmail())){
-            throw new RuntimeException("Email already registered");
+            User presentUser = userRepository.findByEmail(registerRequest.getEmail());
+
+            return UserResponse.builder()
+                    .firstName(presentUser.getFirstName())
+                    .lastName(presentUser.getLastName())
+                    .email(presentUser.getEmail())
+                    .id(presentUser.getId())
+                    .createdAt(presentUser.getCreatedAt())
+                    .updatedAt(presentUser.getUpdatedAt())
+                    .keyCloakId(presentUser.getKeyCloakId())
+                    .build();
         }
 
         User user = new User();
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName(registerRequest.getLastName());
         user.setEmail(registerRequest.getEmail());
-        user.setPassword((registerRequest.getPassword()));
+        user.setKeyCloakId(registerRequest.getKeyCloakId());
 
         User savedUser = userRepository.save(user);
 
@@ -47,10 +58,11 @@ public class UserService {
                 .id(savedUser.getId())
                 .createdAt(savedUser.getCreatedAt())
                 .updatedAt(savedUser.getUpdatedAt())
+                .keyCloakId(user.getKeyCloakId())
                 .build();
     }
 
     public Boolean validateUser(String userId) {
-        return userRepository.existsById(userId);
+        return userRepository.existsBykeyCloakId(userId);
     }
 }
