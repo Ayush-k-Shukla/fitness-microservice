@@ -109,3 +109,9 @@ graph TD
 - https://medium.com/cwan-engineering/rabbitmq-concepts-and-best-practices-aa3c699d6f08
 - https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce
 - https://medium.com/@sehgal.mohit06/oauth2-authorization-code-with-pkce-using-keycloak-and-spring-boot-demo-54a4f0c66dae
+
+
+Pending
+
+- remove password check fully
+- treat keycloak id as primary id for user who is loggedin
