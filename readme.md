@@ -25,10 +25,10 @@ docker run -p 127.0.0.1:8181:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOO
 
 ## Local URL to inspect running
 
-- Eureka : http://localhost:8761/
-- RabbitMQ : http://localhost:15672/
-- KeyCloak : http://localhost:8181/
-- Gateway : http://localhost:8080/
+- Eureka : http://localhost:8761
+- RabbitMQ : http://localhost:15672
+- KeyCloak : http://localhost:8181
+- Gateway : http://localhost:8080
 
 ## High level diagram
 
@@ -101,15 +101,6 @@ graph TD
     F --> J
     G --> K
 ```
-
-## Some reference
-
-- https://bayoglubatuhan.medium.com/what-is-keycloak-what-is-behind-of-the-keycloak-how-does-keycloak-work-d1be308d3227
-- https://medium.com/@dulanjayasandaruwan1998/configuring-rabbitmq-in-a-spring-boot-application-b7bd2de77370
-- https://medium.com/cwan-engineering/rabbitmq-concepts-and-best-practices-aa3c699d6f08
-- https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce
-- https://medium.com/@sehgal.mohit06/oauth2-authorization-code-with-pkce-using-keycloak-and-spring-boot-demo-54a4f0c66dae
-
 
 Consideration
 
