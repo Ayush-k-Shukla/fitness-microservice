@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { IActivity } from './interface';
+import type { IActivityRequest } from './interface';
 
 const API_URL = 'http://localhost:8080/api';
 
@@ -23,7 +23,7 @@ api.interceptors.request.use((config) => {
 
 export const getActivities = () => api.get('/activities');
 
-export const addActivity = (activity: IActivity) =>
+export const addActivity = (activity: IActivityRequest) =>
   api.post('/activities', activity);
 
 export const getActivityDetail = (id: string) =>

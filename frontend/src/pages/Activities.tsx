@@ -1,21 +1,46 @@
-import { Box, Typography } from '@mui/material';
+import { Card, CardContent, Grid, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getActivities } from '../api';
+import type { IActivityResponse } from '../api/interface';
 
 export const Activities = () => {
+  const [activities, setActivities] = useState<IActivityResponse[]>([]);
+  const navigate = useNavigate();
+
+  const fetchActivities = async () => {
+    try {
+      const response = await getActivities();
+      setActivities(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchActivities();
+  }, []);
+
   return (
-    <Box
-      component='section'
-      sx={{
-        p: 2,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        height: '100%',
-      }}
-    >
-      <Typography variant='h2' sx={{ p: 2 }}>
-        This is Activities page
-      </Typography>
-    </Box>
+    <Grid container spacing={2}>
+      {activities.map((activity) => (
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          <Card
+            sx={{ cursor: 'pointer' }}
+            onClick={() => navigate(`/activities/${activity.id}`)}
+          >
+            <CardContent>
+              <Typography variant='h6'>{activity.activityType}</Typography>
+              <Typography>Duration: {activity.duration}</Typography>
+              <Typography>Calories: {activity.caloriesBurned}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
   );
 };
