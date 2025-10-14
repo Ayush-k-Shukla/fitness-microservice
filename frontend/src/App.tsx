@@ -42,7 +42,9 @@ function App() {
               Logout
             </Button>
 
-            <Typography>Hii {userInfo?.firstName}</Typography>
+            <Typography>
+              Hii {userInfo?.firstName} {userInfo?.lastName}
+            </Typography>
 
             <BrowserRouter>
               <Routes>

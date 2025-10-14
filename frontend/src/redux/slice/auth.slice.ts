@@ -31,9 +31,13 @@ export const authSlice = createSlice({
         id: action.payload.tokenData?.['sub'],
       };
       state.user = user;
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('userId', user?.id ?? '');
     },
     logout: (state) => {
       state.user = null;
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
     },
   },
 });
