@@ -17,7 +17,6 @@ spring:
             - id: activityservice
               uri: lb://ACTIVITYSERVICE
               predicates:
-                - Path=/api/activities
                 - Path=/api/activities/**
 
             - id: aiservice

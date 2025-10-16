@@ -19,8 +19,8 @@ public class ActivityController {
     private ActivityService activityService;
 
     @PostMapping
-    public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest request){
-        return ResponseEntity.ok(activityService.trackActivity(request));
+    public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest request, @RequestHeader(USER_ID_HEADER) String userId){
+        return ResponseEntity.ok(activityService.trackActivity(request, userId));
     }
 
     @GetMapping
@@ -28,7 +28,7 @@ public class ActivityController {
         return ResponseEntity.ok(activityService.getUserActivity(userId));
     }
 
-    @GetMapping("{activityId}")
+    @GetMapping("/{activityId}")
     public ResponseEntity<ActivityResponse> getActivityById(@PathVariable String activityId){
         return ResponseEntity.ok(activityService.getActivityById(activityId));
     }

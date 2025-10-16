@@ -22,7 +22,7 @@ public class KeyCloakUserSyncFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange webExchange, WebFilterChain chain){
-        String userId = getHeaderValueFromRequest(webExchange, "X-User-ID");
+        String userId = getHeaderValueFromRequest(webExchange, "X-USER-ID");
         String token = getHeaderValueFromRequest(webExchange, "Authorization");
         RegisterRequest registerRequest = getUserDetails(token);
 
@@ -47,7 +47,7 @@ public class KeyCloakUserSyncFilter implements WebFilter {
                    .then(Mono.defer(()->{
                        ServerHttpRequest mutatedRequest = webExchange.getRequest()
                                .mutate()
-                               .header("X-User-Id", finalUserId)
+                               .header("X-USER-ID", finalUserId)
                                .build();
                        return chain.filter(webExchange.mutate().request(mutatedRequest).build());
                    }));

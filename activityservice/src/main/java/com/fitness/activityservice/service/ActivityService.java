@@ -32,14 +32,14 @@ public class ActivityService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public ActivityResponse trackActivity(ActivityRequest request) {
+    public ActivityResponse trackActivity(ActivityRequest request, String userId) {
 
-        boolean isValidUser = userValidationService.validateUser(request.getUserId());
+        boolean isValidUser = userValidationService.validateUser(userId);
 
         if(!isValidUser) throw new RuntimeException("User not found");
 
         Activity activity = Activity.builder()
-                .userId(request.getUserId())
+                .userId(userId)
                 .activityType(request.getActivityType())
                 .caloriesBurned(request.getCaloriesBurned())
                 .duration(request.getDuration())
