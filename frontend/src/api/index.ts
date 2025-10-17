@@ -16,12 +16,14 @@ api.interceptors.request.use((config) => {
   }
 
   if (userId) {
-    config.headers['X-User-ID'] = userId;
+    config.headers['X-USER-ID'] = userId;
   }
   return config;
 });
 
 export const getActivities = () => api.get('/activities');
+
+export const getActivityById = (id: string) => api.get(`/activities/${id}`);
 
 export const addActivity = (activity: IActivityRequest) =>
   api.post('/activities', activity);

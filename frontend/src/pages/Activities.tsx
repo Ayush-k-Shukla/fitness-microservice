@@ -1,11 +1,13 @@
-import { Card, CardContent, Grid, Typography } from '@mui/material';
+import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getActivities } from '../api';
 import type { IActivityResponse } from '../api/interface';
+import { CreateActivity } from './CreateActivity';
 
 export const Activities = () => {
   const [activities, setActivities] = useState<IActivityResponse[]>([]);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const fetchActivities = async () => {
@@ -22,25 +24,42 @@ export const Activities = () => {
   }, []);
 
   return (
-    <Grid container spacing={2}>
-      {activities.map((activity) => (
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          <Card
-            sx={{ cursor: 'pointer' }}
-            onClick={() => navigate(`/activities/${activity.id}`)}
+    <>
+      <Button
+        variant='contained'
+        color='primary'
+        onClick={() => setIsCreateModalOpen(true)}
+        sx={{ mb: 2 }}
+      >
+        Create Activity
+      </Button>
+
+      <CreateActivity
+        open={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={fetchActivities}
+      />
+
+      <Grid container spacing={2}>
+        {activities.map((activity) => (
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            <CardContent>
-              <Typography variant='h6'>{activity.activityType}</Typography>
-              <Typography>Duration: {activity.duration}</Typography>
-              <Typography>Calories: {activity.caloriesBurned}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+            <Card
+              sx={{ cursor: 'pointer' }}
+              onClick={() => navigate(`/activities/${activity.id}`)}
+            >
+              <CardContent>
+                <Typography variant='h6'>{activity.activityType}</Typography>
+                <Typography>Duration: {activity.duration}</Typography>
+                <Typography>Calories: {activity.caloriesBurned}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 };
