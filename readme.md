@@ -1,18 +1,17 @@
 # Intro
 
-Implementing Microservice pattern in Spring Boot along with following things
+Implementing Microservice pattern in Spring Boot along with
 - Service Discovery (Eureka)
 - API Gateway
 - Config Server
 - Gemini AI integration
 
 ## Setup
-- First run eureka so all services can be registered and discovered.
-- Second run configserver so all configs are available
-- run all remaining service one by one
-- Also run dependency for each service like Mongo, Postgres, RabbitMQ.
-- In this service all instance are running locally
-
+- First run `eureka` so all services can be registered and discovered.
+- Second run `configserver` so all configs are available
+- run all remaining service one after one
+- Also run dependency for each service like Mongo, Postgres, RabbitMQ. (refer HLD for dependency of DB)
+- Now just test APIs
 
 For running RabbitMQ
 ```

@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: User Service API
+  description: API documentation for the User Service in the Fitness Microservices ecosystem
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /api/users/{userId}:
+    get:
+      summary: Get user profile
+      description: Retrieves the profile information for a specific user
+      tags:
+        - User Management
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the user
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+
+  /api/users/register:
+    post:
+      summary: Register new user
+      description: Creates a new user account
+      tags:
+        - User Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid request data
+
+  /api/users/{userId}/validate:
+    get:
+      summary: Validate user
+      description: Validates if a user exists and is active
+      tags:
+        - User Management
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the user to validate
+      responses:
+        '200':
+          description: User validation result
+          content:
+            application/json:
+              schema:
+                type: boolean
+
+components:
+  schemas:
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user
+        email:
+          type: string
+          format: email
+          description: User's email address
+        name:
+          type: string
+          description: User's full name
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user was last updated
+
+    RegisterRequest:
+      type: object
+      required:
+        - email
+        - password
+        - name
+      properties:
+        email:
+          type: string
+          format: email
+          description: User's email address
+        password:
+          type: string
+          format: password
+          description: User's password
+        name:
+          type: string
+          description: User's full name

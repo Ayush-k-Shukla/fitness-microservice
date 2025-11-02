@@ -1,0 +1,121 @@
+openapi: 3.0.3
+info:
+  title: AI Service API
+  description: API documentation for the AI Service in the Fitness Microservices ecosystem
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /api/recommendations/user/{userId}:
+    get:
+      summary: Get user recommendations
+      description: Retrieves all AI-generated recommendations for a specific user
+      tags:
+        - Recommendations
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the user
+      responses:
+        '200':
+          description: List of recommendations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recommendation'
+        '404':
+          description: User not found
+
+  /api/recommendations/activity/{activityId}:
+    get:
+      summary: Get activity recommendation
+      description: Retrieves AI-generated recommendation for a specific activity
+      tags:
+        - Recommendations
+      parameters:
+        - name: activityId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the activity
+      responses:
+        '200':
+          description: Recommendation retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recommendation'
+        '404':
+          description: Activity recommendation not found
+
+components:
+  schemas:
+    Recommendation:
+      type: object
+      properties:
+        activityId:
+          type: string
+          description: ID of the activity this recommendation is for
+        userId:
+          type: string
+          description: ID of the user who performed the activity
+        activityType:
+          type: string
+          description: Type of the activity (e.g., RUNNING, CYCLING)
+        recommendation:
+          type: string
+          description: Detailed analysis and recommendation text
+        improvements:
+          type: array
+          items:
+            type: string
+          description: List of specific improvement suggestions
+        suggestions:
+          type: array
+          items:
+            type: string
+          description: List of suggested workouts and activities
+        safety:
+          type: array
+          items:
+            type: string
+          description: List of safety guidelines and precautions
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the recommendation was generated
+
+    Activity:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        activityType:
+          type: string
+        duration:
+          type: integer
+        caloriesBurned:
+          type: integer
+        startedAt:
+          type: string
+          format: date-time
+        additionalMetrics:
+          type: object
+          additionalProperties:
+            type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time

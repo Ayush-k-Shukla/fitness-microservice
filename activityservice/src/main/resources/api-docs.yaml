@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Activity Service API
+  description: API documentation for the Activity Service in the Fitness Microservices ecosystem
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /api/activities:
+    post:
+      summary: Track new activity
+      description: Records a new fitness activity for a user
+      tags:
+        - Activity Management
+      parameters:
+        - name: X-USER-ID
+          in: header
+          required: true
+          schema:
+            type: string
+          description: User ID of the authenticated user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivityRequest'
+      responses:
+        '200':
+          description: Activity tracked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityResponse'
+        '400':
+          description: Invalid request data
+        '404':
+          description: User not found
+
+    get:
+      summary: Get user activities
+      description: Retrieves all activities for a specific user
+      tags:
+        - Activity Management
+      parameters:
+        - name: X-USER-ID
+          in: header
+          required: true
+          schema:
+            type: string
+          description: User ID of the authenticated user
+      responses:
+        '200':
+          description: List of activities retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActivityResponse'
+
+  /api/activities/{activityId}:
+    get:
+      summary: Get activity by ID
+      description: Retrieves a specific activity by its ID
+      tags:
+        - Activity Management
+      parameters:
+        - name: activityId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the activity
+      responses:
+        '200':
+          description: Activity retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityResponse'
+        '404':
+          description: Activity not found
+
+components:
+  schemas:
+    ActivityType:
+      type: string
+      enum: [RUNNING, CYCLING, SWIMMING, WALKING, HIKING, STRENGTH_TRAINING]
+      description: Type of fitness activity
+
+    ActivityRequest:
+      type: object
+      required:
+        - activityType
+        - duration
+        - caloriesBurned
+        - startedAt
+      properties:
+        activityType:
+          $ref: '#/components/schemas/ActivityType'
+        duration:
+          type: integer
+          description: Duration of activity in minutes
+        caloriesBurned:
+          type: integer
+          description: Estimated calories burned during the activity
+        startedAt:
+          type: string
+          format: date-time
+          description: When the activity started
+        additionalMetrics:
+          type: object
+          additionalProperties:
+            type: object
+          description: Additional activity-specific metrics (e.g., distance, heart rate)
+
+    ActivityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the activity
+        userId:
+          type: string
+          description: ID of the user who performed the activity
+        activityType:
+          $ref: '#/components/schemas/ActivityType'
+        duration:
+          type: integer
+          description: Duration of activity in minutes
+        caloriesBurned:
+          type: integer
+          description: Estimated calories burned during the activity
+        startedAt:
+          type: string
+          format: date-time
+          description: When the activity started
+        additionalMetrics:
+          type: object
+          additionalProperties:
+            type: object
+          description: Additional activity-specific metrics
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the activity was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the activity was last updated
