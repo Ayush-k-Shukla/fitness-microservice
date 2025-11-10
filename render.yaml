@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: eureka-server
+    runtime: docker
+    dockerfilePath: ./eureka/Dockerfile
+    plan: free
+    autoDeploy: true
